@@ -12,7 +12,7 @@ namespace RenderFeatures
             NormalizedDepth
         }
 
-        public TextureMode SelectedTextureMode;
+        public TextureMode Mode;
         private LinearDepthPass _linearDepthPass;
 
         public RenderTexture RenderTexture
@@ -27,7 +27,7 @@ namespace RenderFeatures
 
         public override void Create()
         {
-            _linearDepthPass = new LinearDepthPass(SelectedTextureMode);
+            _linearDepthPass = new LinearDepthPass(Mode);
         }
 
         public override void SetupRenderPasses(ScriptableRenderer renderer, in RenderingData renderingData)
