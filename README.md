@@ -1,16 +1,37 @@
-RENDER FEATUES
+Render Features
 ====================================================================================================
-This package is intended to have a bunch of render features to display several GPU operations.
+This package provides a set of rendering features to demonstrate various GPU operations.
 
 Linear Depth
 ------------------
-The _Linear Depth Render Feature_ contains an integrated render feature to be used in Unity6 URP that
-prints into an Editor Window the result of gathering the main camera's depth texture, linearize and
-normalize it.
+The __Linear Depth Render Feature__ includes an integrated functionality for Unity 6 URP. 
+It processes the main camera's depth texture, linearizes, and normalizes it, then displays the 
+result in an editor window.
 
-To use it, create a new Unity 6 project, open up the Package Manager and install the UPM package 
-from git. The package includes a sample scene that can be used to see the results. You can either
-create your own scene but take into account that it requires at least a camera set with "MainCamera"
-tag and the "PC Renderer" attached to it into the Camera's rendering settings within the component.
+__Usage Instructions:__
 
-[cover1]
+- Create a new Unity 6 project.
+- Open the Package Manager and install the UPM package from Git.
+- The package includes a sample scene for demonstration purposes. Alternatively, you can create
+  your own scene, ensuring the following prerequisites:
+  - A camera with the "MainCamera" tag.
+  - The "PC Renderer" component assigned to the camera's rendering settings.
+
+![Alt text](Images/CameraSettings.jpg)
+
+Within the Settings folder of the package, you will find the PC Renderer. This renderer includes 
+the Compute Feature required to activate the render pass.
+
+![Alt text](Images/RendererData.jpg)
+
+The renderer provides a mode selection option to switch between:
+
+The original depth texture from the camera.
+- A linearized depth texture.
+- A linear and normalized depth texture.
+
+__Previewing the Output:__
+To preview the depth image, navigate to Tools > Depth Capture in the Unity Editor and click 
+__Capture Depth__. This action opens an editor window displaying the texture based on the selected mode.
+
+![Alt text](Images/EditorWindow.jpg)
