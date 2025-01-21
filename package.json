@@ -1,0 +1,16 @@
+{
+  "name": "com.mypackages.render-features",
+  "version": "1.0.0",
+  "displayName": "Render Features",
+  "description": "This package contains different render features that uses compute shaders to perform GPU operations.",
+  "unity": "6000.0",
+  "unityRelease": "30b1",
+  "dependencies": {
+    "com.unity.render-pipelines.universal": "17.0.3"
+  },
+  "author": {
+    "name": "Alberto Garc\u00eda Ruiz",
+    "email": "albertogarciaruiz96@gmail.com",
+    "url": "https://github.com/agarciaruiz"
+  }
+}

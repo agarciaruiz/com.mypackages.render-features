@@ -1,0 +1,55 @@
+#pragma kernel CSMain
+
+// Input and output textures
+Texture2D<float> _CameraDepthTexture;
+RWTexture2D<float> TargetTexture;
+
+// Camera parameters
+float zNear;
+float zFar;
+
+int displayMode;
+
+float LinearEyeDepth(float rawdepth)
+{
+    float x, y, z, w;
+#if SHADER_API_GLES3 // insted of UNITY_REVERSED_Z
+    x = -1.0 + zNear/ zFar;
+    y = 1;
+    z = x / zNear;
+    w = 1 / zNear;
+#else
+    x = 1.0 - zNear / zFar;
+    y = zNear / zFar;
+    z = x / zNear;
+    w = y / zNear;
+#endif
+
+    return 1.0 / (z * rawdepth + w);
+}
+
+[numthreads(8, 8, 1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    // Read depth value and perform validation
+    float depth = _CameraDepthTexture.Load(int3(id.xy, 0));
+
+    // Convert from Unity's reversed Z-buffer to linear depth
+    float linearDepth = LinearEyeDepth(depth);
+    
+    // Normalize to [0,1] range
+    float normalizedDepth = 1 - (linearDepth - zNear) / (zFar - zNear);
+    
+    switch (displayMode)
+    {
+        case 0:
+            TargetTexture[id.xy] = depth;
+            break;
+        case 1: 
+            TargetTexture[id.xy] = linearDepth;
+            break;
+        case 2:
+            TargetTexture[id.xy] = normalizedDepth;
+            break;
+    }
+}
